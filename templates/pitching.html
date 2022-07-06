@@ -44,6 +44,26 @@
               </div>
             </div>
           </nav>
-        <h1>
-        
-        </h1>
+
+          <div class="row">
+            <div class="col-md-3">
+              <div class="well">
+                <h5>Player ID:</h5>
+                <select id="selDataset" onchange="optionChanged(this.value)"></select>
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <!-- general info on player (year, stint, team) -->
+              <div class="panel panel-primary">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Player Info</h3>
+                </div>
+                <div id="sample-metadata" class="panel-body"></div>
+              </div>
+            </div>
+
+            <div class="col-md-7">
+              <!-- perhaps a pi chart showing pitching record of player -->
+            </div> 
+          </div>
