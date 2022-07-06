@@ -30,39 +30,53 @@
                   <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="hitting.html"></i><i class="fa-solid fa-baseball-bat-ball"></i> Hitting</a>
                   </li>
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Plots
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <li><a class="dropdown-item" href="visualization1.html"> visualization1</a></li>
-                      <li><a class="dropdown-item" href="visualization2.html"> visualization2</a></li>
-                      <li><a class="dropdown-item" href="visualization3.html"> visualization3</a></li>
-                      <li><a class="dropdown-item" href="visualization4.html"> visualization4</a></li>
-                    </ul>
-                  </li>
                 </ul>
               </div>
             </div>
           </nav>
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-4">
           <div class="well">
             <h5>Player ID:</h5>
             <select id="selDataset" onchange="optionChanged(this.value)"></select>
           </div>
         </div>
 
-        <div class="col-md-2">
-          <!-- general info on player (year, stint, team) -->
-          <div class="panel panel-primary">
-            <div class="panel-heading">
-              <h3 class="panel-title">Player Info</h3>
+        <div class="col-md-8">
+          <div class="row">
+            <div class="col-md-4">
+              <h4>Graph 1</h4>
+              <a target="_blank" href="">
+                <img class = "vis" src="" alt="hgraph1">
+              </a>
+              <div id="hgraph1"></div>
             </div>
-            <div id="sample-metadata" class="panel-body"></div>
+
+            <div class="col-md-4">
+              <h4>Graph 2</h4>
+              <a target="_blank" href="">
+                <img class = "vis" src="" alt="hgraph2">
+              </a>
+              <div id="hgraph2"></div>
+            </div>
+
+            <br>
+
+            <div class="col-md-4">
+              <h4>Graph 3</h4>
+              <a target="_blank" href="">
+                <img class = "vis" src="" alt="hgraph3">
+              </a>
+              <div id="hgraph3"></div>
+            </div>
+
+            <div class="col-md-4">
+              <h4>Graph 4</h4>
+              <a target="_blank" href="">
+                <img class = "vis" src="" alt="hgraph4">
+              </a>
+              <div id="hgraph4"></div>
+            </div>
           </div>
         </div>
-
-        <div class="col-md-7">
-          <!-- perhaps a pi chart showing batting record of player -->
-        </div> 
       </div>
