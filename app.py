@@ -1,23 +1,57 @@
-from flask import Flask, render_template, redirect
-from flask_pymongo import PyMongo
+# 1. import Flask
+import numpy as np
+
+import sqlalchemy
+from sqlalchemy.ext.automap import automap_base
+from sqlalchemy.orm import Session
+from sqlalchemy import create_engine, func
+
+from flask import Flask, jsonify, render_template
 
 
-# Create an instance of Flask
+#################################################
+# Database Setup
+#################################################
+engine = create_engine("sqlite:///Baseball.sqlite")
+
+# reflect an existing database into a new model
+Base = automap_base()
+
+# reflect the tables
+Base.prepare(engine, reflect=True)
+
+
+
+# # Save reference to the table
+Pitching = Base.classes.Pitching
+Batting = Base.classes.Batting
+
+# # 2. Create an app, being sure to pass __name__
 app = Flask(__name__)
 
-# Use PyMongo to establish Mongo connection
-mongo = PyMongo(app, uri="mongodb://localhost:{port}/baseball_db")
-
-
-# Route to render index.html template using data from Mongo
+# 3. Define what to do when a user hits the index route
 @app.route("/")
 def home():
+    print("Server received request for 'Home' page...")
+    return render_template("index.html")
 
-    # Find one record of data from the mongo database
-    baseball = mongo.db.collection.find_one()
 
-    # Return template and data
-    return render_template("index.html", baseball=baseball)
+# 4. Define what to do when a user hits the /about route
+@app.route("/about")
+def about():
+    print("Server received request for 'About' page...")
+    return "Welcome to my 'About' page!"
 
+# 4. Define what to do when a user hits the /about route
+@app.route("/api/v1.0")
+def api():
+    session = Session(engine)
+    result = session.query(Pitching.playerID, Pitching.yearID).all()
+    # looks at at each tuple and turns into a list 
+    result = [list(r) for r in result]
+    session.close()
+    print(result)
+    return jsonify(result)
+    
 if __name__ == "__main__":
     app.run(debug=True)
