@@ -1,5 +1,5 @@
 // D3 DATA
-d3.json("").then(function(data) {
+d3.json("api/v1.0").then(function(data) {
     console.log(data);
 
     // DROPDOWN
