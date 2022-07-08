@@ -31,27 +31,49 @@ app = Flask(__name__)
 
 # 3. Define what to do when a user hits the index route
 @app.route("/")
-def home():
-    print("Server received request for 'Home' page...")
+def home1():
     return render_template("index.html")
 
+@app.route("/index")
+def home2():
+    return render_template("index.html")
 
-# 4. Define what to do when a user hits the /about route
+# @app.route("/api/v1.0")
+# def api():
+#     return f'please work'
+
 @app.route("/about")
 def about():
     print("Server received request for 'About' page...")
     return "Welcome to my 'About' page!"
 
 # 4. Define what to do when a user hits the /about route
-@app.route("/api/v1.0")
-def api():
+@app.route("/api/v1.0/pitching")
+def pitching_api():
     session = Session(engine)
-    result = session.query(Pitching.playerID, Pitching.yearID).all()
+    pitching_result = session.query(Pitching.playerID, Pitching.yearID, Pitching.HR).all()
     # looks at at each tuple and turns into a list 
-    result = [list(r) for r in result]
+    pitching_result = [list(r) for r in pitching_result]
     session.close()
-    print(result)
-    return jsonify(result)
+    return jsonify(pitching_result)
+
+@app.route("/api/v1.0/batting")
+def batting_api():
+    session = Session(engine)
+    # batting_result = session.query(Batting.AVG).all()
+    batting_result = session.query(Batting.playerID, Batting.yearID, Batting.AVG).all()
+    # looks at at each tuple and turns into a list 
+    batting_result = [list(r) for r in batting_result]
+    session.close()
+    return jsonify(batting_result)
+
+@app.route("/batting")
+def batting():
+    return render_template("batting.html")
+
+@app.route("/pitching")
+def pitching():
+    return render_template("pitching.html")
     
 if __name__ == "__main__":
     app.run(debug=True)
