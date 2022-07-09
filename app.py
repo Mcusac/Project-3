@@ -51,7 +51,16 @@ def about():
 @app.route("/api/v1.0/pitching")
 def pitching_api():
     session = Session(engine)
-    pitching_result = session.query(Pitching.playerID, Pitching.yearID, Pitching.HR).all()
+    pitching_result = session.query(Pitching.playerID, Pitching.yearID, Pitching.HR, Pitching.SO, Pitching.BB, Pitching.ERA, Pitching.first, Pitching.last).all()
+    # looks at at each tuple and turns into a list 
+    pitching_result = [list(r) for r in pitching_result]
+    session.close()
+    return jsonify(pitching_result)
+
+@app.route("/api/v1.0/pitching/<playerID>")
+def pitching_api_player(pitcher_ID):
+    session = Session(engine)
+    pitching_result = session.query(Pitching.playerID, Pitching.yearID, Pitching.HR, Pitching.SO, Pitching.BB, Pitching.ERA, Pitching.first, Pitching.last).all()
     # looks at at each tuple and turns into a list 
     pitching_result = [list(r) for r in pitching_result]
     session.close()
@@ -61,7 +70,17 @@ def pitching_api():
 def batting_api():
     session = Session(engine)
     # batting_result = session.query(Batting.AVG).all()
-    batting_result = session.query(Batting.playerID, Batting.yearID, Batting.AVG).all()
+    batting_result = session.query(Batting.playerID, Batting.yearID, Batting.AVG, Batting.HR, Batting.single_per, Batting.double_per, Batting.triple_per, Batting.HRper, Batting.SO).all()
+    # looks at at each tuple and turns into a list 
+    batting_result = [list(r) for r in batting_result]
+    session.close()
+    return jsonify(batting_result)
+
+@app.route("/api/v1.0/batting/<playerID>")
+def batting_api_player(batter_ID):
+    session = Session(engine)
+    # batting_result = session.query(Batting.AVG).all()
+    batting_result = session.query(Batting.playerID, Batting.yearID, Batting.AVG, Batting.HR, Batting.single_per, Batting.double_per, Batting.triple_per, Batting.HRper, Batting.SO).all()
     # looks at at each tuple and turns into a list 
     batting_result = [list(r) for r in batting_result]
     session.close()
