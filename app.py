@@ -64,7 +64,11 @@ def pitching_api_player(pitcher_ID):
     # looks at at each tuple and turns into a list 
     pitching_result = [list(r) for r in pitching_result]
     session.close()
-    return jsonify(pitching_result)
+    pitching_final = []
+    for pitcher in pitching_result:
+        if pitcher[0] == pitcher_ID:
+            pitching_final.append(pitcher)
+    return jsonify(pitching_final)
 
 @app.route("/api/v1.0/batting")
 def batting_api():
@@ -84,7 +88,11 @@ def batting_api_player(batter_ID):
     # looks at at each tuple and turns into a list 
     batting_result = [list(r) for r in batting_result]
     session.close()
-    return jsonify(batting_result)
+    batting_final = []
+    for batter in batting_result:
+        if batter[0] == batter_ID:
+            batting_final.append(batter)
+    return jsonify(batting_final)
 
 @app.route("/batting")
 def batting():
