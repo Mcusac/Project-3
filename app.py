@@ -6,7 +6,12 @@ from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
 
-from flask import Flask, jsonify, render_template
+from flask import (
+    Flask,
+    render_template,
+    jsonify,
+    request,
+    redirect)
 
 
 #################################################
@@ -101,6 +106,44 @@ def batting():
 @app.route("/pitching")
 def pitching():
     return render_template("pitching.html")
+
+@app.route("/form_pitching")
+def form_pitching():
+    return render_template("form_pitching.html")
+
+@app.route("/send_batting", methods=["GET", "POST"])
+def send_batting():
+
+    session = Session(engine)
+
+    if request.method == "POST":
+        
+        yearID = request.form["yearID"]
+        playerID = request.form["playerID"]
+        
+
+        player = Batting(yearID=yearID, playerID=playerID)
+        
+        return redirect("api/v1.0/batting/<playerID>", code=302)
+
+    session.close()
+
+    return render_template("form_batting.html")
+
+@app.route("/send_pitching/<yearID>/<playerID>", methods=["GET", "POST"])
+def send_pitching(yearID, playerID):
+
+    session = Session(engine)
+    
+    print(yearID, playerID)    
+    pitching_result = session.query(Pitching.playerID, Pitching.yearID, Pitching.HR, Pitching.SO, Pitching.BB, Pitching.ERA, Pitching.first, Pitching.last).filter(Pitching.playerID == playerID).filter(Pitching.yearID == yearID).all()
+    #player = Pitching(yearID=yearID, playerID=playerID)
+    print(pitching_result)
+    pitching_result = [list(p) for p in pitching_result]
+
+    session.close()
+
+    return jsonify(pitching_result)
     
 if __name__ == "__main__":
     app.run(debug=True)

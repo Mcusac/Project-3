@@ -55,3 +55,12 @@ function loadcharts(selected){
 
     })
 };
+
+function pitching(yearID, playerID) {
+    console.log(yearID, playerID)
+    d3.json("/send_pitching/"+yearID+"/"+playerID).then(function(data){
+        console.log(data)
+        //This is where the plotly charts will go for the Pitchers
+    })
+
+};
