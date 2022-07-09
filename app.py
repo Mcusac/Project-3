@@ -58,7 +58,7 @@ def pitching_api():
     return jsonify(pitching_result)
 
 @app.route("/api/v1.0/pitching/<playerID>")
-def pitching_api_player(pitcher_ID):
+def pitching_api_player(playerID):
     session = Session(engine)
     pitching_result = session.query(Pitching.playerID, Pitching.yearID, Pitching.HR, Pitching.SO, Pitching.BB, Pitching.ERA, Pitching.first, Pitching.last).all()
     # looks at at each tuple and turns into a list 
@@ -66,7 +66,7 @@ def pitching_api_player(pitcher_ID):
     session.close()
     pitching_final = []
     for pitcher in pitching_result:
-        if pitcher[0] == pitcher_ID:
+        if pitcher[0] == playerID:
             pitching_final.append(pitcher)
     return jsonify(pitching_final)
 
@@ -81,7 +81,7 @@ def batting_api():
     return jsonify(batting_result)
 
 @app.route("/api/v1.0/batting/<playerID>")
-def batting_api_player(batter_ID):
+def batting_api_player(playerID):
     session = Session(engine)
     # batting_result = session.query(Batting.AVG).all()
     batting_result = session.query(Batting.playerID, Batting.yearID, Batting.AVG, Batting.HR, Batting.single_per, Batting.double_per, Batting.triple_per, Batting.HRper, Batting.SO).all()
@@ -90,7 +90,7 @@ def batting_api_player(batter_ID):
     session.close()
     batting_final = []
     for batter in batting_result:
-        if batter[0] == batter_ID:
+        if batter[0] == playerID:
             batting_final.append(batter)
     return jsonify(batting_final)
 
