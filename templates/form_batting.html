@@ -22,6 +22,10 @@
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
+    <!-- We inserted the two lines below because Bill said so -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script> 
+
     <body>
         <div class="container">
             <div class="jumbotron" style="text-align: center">
@@ -31,7 +35,8 @@
             <div class="row">
                 <div class="col-md-offset-2 col-md-8">
 
-                    <form method="POST" action="/send_batting" role="form", name="petform">
+                    <!-- Per Bill: we changed the action= below to call the function "batting" in the app.js -->
+                    <form method="POST" action="javascript:batting(inputYearID.value,inputPlayerID.value)" role="form", name="petform">
                         
                         <div class="form-group">
                             <label for="inputYearID">Year</label>

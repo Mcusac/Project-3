@@ -13,7 +13,6 @@ from flask import (
     request,
     redirect)
 
-
 #################################################
 # Database Setup
 #################################################
@@ -25,16 +24,15 @@ Base = automap_base()
 # reflect the tables
 Base.prepare(engine, reflect=True)
 
-
-
-# # Save reference to the table
+# # Save reference to the tables
 Pitching = Base.classes.Pitching
 Batting = Base.classes.Batting
 
-# # 2. Create an app, being sure to pass __name__
+# Create an app, being sure to pass __name__
 app = Flask(__name__)
 
-# 3. Define what to do when a user hits the index route
+# Define what to do when a user hits the index route
+# The / and /index routes will both render index.html, the home page.
 @app.route("/")
 def home1():
     return render_template("index.html")
@@ -52,7 +50,7 @@ def about():
     print("Server received request for 'About' page...")
     return "Welcome to my 'About' page!"
 
-# 4. Define what to do when a user hits the /about route
+# Define what to do when a user hits the /about route
 @app.route("/api/v1.0/pitching")
 def pitching_api():
     session = Session(engine)
@@ -103,32 +101,39 @@ def batting_api_player(playerID):
 def batting():
     return render_template("batting.html")
 
+@app.route("/form_batting")
+def form_batting():
+    return render_template("form_batting.html")
+
+
 @app.route("/pitching")
 def pitching():
     return render_template("pitching.html")
+
 
 @app.route("/form_pitching")
 def form_pitching():
     return render_template("form_pitching.html")
 
-@app.route("/send_batting", methods=["GET", "POST"])
-def send_batting():
+#--------------------------------------------------------------------------------------------------------
+# This was the route that Bill helped us out with to get the batting form to work.
+@app.route("/send_batting/<yearID>/<playerID>", methods=["GET", "POST"])
+def send_batting(yearID, playerID):
 
     session = Session(engine)
 
-    if request.method == "POST":
-        
-        yearID = request.form["yearID"]
-        playerID = request.form["playerID"]
-        
-
-        player = Batting(yearID=yearID, playerID=playerID)
-        
-        return redirect("api/v1.0/batting/<playerID>", code=302)
+    print(yearID, playerID)
+    batting_result = session.query(Batting.playerID, Batting.yearID, Batting.AVG, Batting.HR, Batting.single_per, Batting.double_per, Batting.triple_per, Batting.HRper, Batting.SO).filter(Batting.playerID == playerID).filter(Batting.yearID == yearID).all()    
+    print(batting_result)
+    batting_result = [list(b) for b in batting_result]
+    session.close()
 
     session.close()
 
-    return render_template("form_batting.html")
+    return jsonify(batting_result)
+
+#--------------------------------------------------------------------------------------------------------
+# This was the route that Bill helped us out with to get the pitching form to work.
 
 @app.route("/send_pitching/<yearID>/<playerID>", methods=["GET", "POST"])
 def send_pitching(yearID, playerID):
@@ -137,13 +142,12 @@ def send_pitching(yearID, playerID):
     
     print(yearID, playerID)    
     pitching_result = session.query(Pitching.playerID, Pitching.yearID, Pitching.HR, Pitching.SO, Pitching.BB, Pitching.ERA, Pitching.first, Pitching.last).filter(Pitching.playerID == playerID).filter(Pitching.yearID == yearID).all()
-    #player = Pitching(yearID=yearID, playerID=playerID)
     print(pitching_result)
     pitching_result = [list(p) for p in pitching_result]
-
     session.close()
 
     return jsonify(pitching_result)
-    
+#--------------------------------------------------------------------------------------------------------
+
 if __name__ == "__main__":
     app.run(debug=True)
