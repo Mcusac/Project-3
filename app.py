@@ -60,18 +60,18 @@ def pitching_api():
     session.close()
     return jsonify(pitching_result)
 
-@app.route("/api/v1.0/pitching/<playerID>")
-def pitching_api_player(playerID):
-    session = Session(engine)
-    pitching_result = session.query(Pitching.playerID, Pitching.yearID, Pitching.HR, Pitching.SO, Pitching.BB, Pitching.ERA, Pitching.first, Pitching.last).all()
-    # looks at at each tuple and turns into a list 
-    pitching_result = [list(r) for r in pitching_result]
-    session.close()
-    pitching_final = []
-    for pitcher in pitching_result:
-        if pitcher[0] == playerID:
-            pitching_final.append(pitcher)
-    return jsonify(pitching_final)
+# @app.route("/api/v1.0/pitching/<playerID>")
+# def pitching_api_player(playerID):
+#     session = Session(engine)
+#     pitching_result = session.query(Pitching.playerID, Pitching.yearID, Pitching.HR, Pitching.SO, Pitching.BB, Pitching.ERA, Pitching.first, Pitching.last).all()
+#     # looks at at each tuple and turns into a list 
+#     pitching_result = [list(r) for r in pitching_result]
+#     session.close()
+#     pitching_final = []
+#     for pitcher in pitching_result:
+#         if pitcher[0] == playerID:
+#             pitching_final.append(pitcher)
+#     return jsonify(pitching_final)
 
 @app.route("/api/v1.0/batting")
 def batting_api():
@@ -147,6 +147,34 @@ def send_pitching(yearID, playerID):
     session.close()
 
     return jsonify(pitching_result)
+#--------------------------------------------------------------------------------------------------------
+# Matt trying to put them on the same page
+
+@app.route("/pitching/<yearID>/<playerID>", methods=["GET", "POST"])
+def pitching_api_year_player(yearID, playerID):
+
+    session = Session(engine)
+    
+    print(yearID, playerID)    
+    pitching_result = session.query(Pitching.playerID, Pitching.yearID, Pitching.HR, Pitching.SO, Pitching.BB, Pitching.ERA, Pitching.first, Pitching.last).filter(Pitching.playerID == playerID).filter(Pitching.yearID == yearID).all()
+    print(pitching_result)
+    pitching_result = [list(p) for p in pitching_result]
+    session.close()
+
+    return jsonify(pitching_result)
+
+@app.route("/send_batting/<yearID>/<playerID>", methods=["GET", "POST"])
+def batting_api_year_player(yearID, playerID):
+
+    session = Session(engine)
+
+    print(yearID, playerID)
+    batting_result = session.query(Batting.playerID, Batting.yearID, Batting.AVG, Batting.HR, Batting.single_per, Batting.double_per, Batting.triple_per, Batting.HRper, Batting.SO).filter(Batting.playerID == playerID).filter(Batting.yearID == yearID).all()    
+    print(batting_result)
+    batting_result = [list(b) for b in batting_result]
+    session.close()
+
+    return jsonify(batting_result)
 #--------------------------------------------------------------------------------------------------------
 
 if __name__ == "__main__":
