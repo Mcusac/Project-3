@@ -107,12 +107,31 @@ def batting_api_year_player(yearID, playerID):
     session = Session(engine)
 
     print(yearID, playerID)
-    batting_result = session.query(Batting.playerID, Batting.yearID, Batting.AVG, Batting.HR, Batting.single_per, Batting.double_per, Batting.triple_per, Batting.HRper, Batting.SO).filter(Batting.playerID == playerID).filter(Batting.yearID == yearID).all()    
+    batting_result = session.query(Batting.playerID, Batting.yearID, Batting.AVG, Batting.HR, Batting.HRper, Batting.SO, Batting.first, Batting.last).filter(Batting.playerID == playerID).filter(Batting.yearID == yearID).all()    
+    year_bat = session.query(Batting.single_per, Batting.double_per, Batting.triple_per, Batting.HRper).filter(Batting.playerID == playerID).filter(Batting.yearID == yearID).all()
     print(batting_result)
     batting_result = [list(b) for b in batting_result]
+    year_bat = [list(b) for b in year_bat]
     session.close()
 
-    return jsonify(batting_result)
+    results = {
+        'Batting': batting_result,
+        'Year': year_bat
+    }
+    return jsonify(results)
+
+# @app.route("/batting/<playerID>", methods=["GET", "POST"])
+# def batting_api_player(playerID):
+
+#     session = Session(engine)
+
+#     print(playerID)
+#     batting_result = session.query(Batting.playerID, Batting.yearID, Batting.AVG, Batting.HR, Batting.SO, Batting.first, Batting.last).filter(Batting.playerID == playerID).all()    
+#     print(batting_result)
+#     batting_result = [list(b) for b in batting_result]
+#     session.close()
+
+#     return jsonify(batting_result)
 #--------------------------------------------------------------------------------------------------------
 
 if __name__ == "__main__":

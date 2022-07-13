@@ -119,13 +119,122 @@ function pitching_api_year_player(playerID) {
     })
 };
 
-function batting_api_year_player(yearID, playerID) {
-    console.log(yearID, playerID)
-    d3.json("/batting/"+yearID+"/"+playerID).then(function(data){
-        console.log(data)
-        //This is where the plotly charts will go for the Pitchers
-    })
-};
+// function batting_api_player(playerID) {
+
+// };
+
+function batting_api_year_player(yearID, playerID){
+  console.log(yearID,playerID)
+  d3.json("/batting/"+yearID+"/"+playerID).then(function(data){
+    console.log(data['Batting'], data['Year'])
+    //This is where the plotly charts will go for the Pitchers
+    // AVG
+    let FYear = data['Batting'][0][6]
+    let LYear = data['Batting'][0][7]
+    let xValue = new Array(data['Batting'].length)
+    for (i = 0; i < data['Batting'].length; i++) {
+        xValue[i] = i + FYear;
+    }
+    let yValue = []
+    for (let i=0; i < data['Batting'].length; i++) {
+      yValue.push(data['Batting'][i][2])
+    }
+    let trace1 = {
+        x: xValue,
+        y: yValue,
+        type: 'bar',
+        textposition: 'auto',
+        hoverinfo: 'none',
+        marker: {
+          color: 'rgb(158,202,225)',
+          opacity: 0.6,
+          line: {
+            color: 'rgb(8,48,107)',
+            width: 1.5
+          }
+        }
+      };
+      let data1 = [trace1];
+      let layout = {
+        title: 'Batting Average by Year',
+        orientation : 'h'
+      };
+      Plotly.newPlot('bgraph1', data1, layout);
+        
+    // HR
+    yValue = []
+    for (let i=0; i < data['Batting'].length; i++) {
+      yValue.push(data['Batting'][i][3])
+    }
+    trace1 = {
+      x: xValue,
+      y: yValue,
+      type: 'bar',
+      textposition: 'auto',
+      hoverinfo: 'none',
+      marker: {
+        color: 'rgb(158,202,225)',
+        opacity: 0.6,
+        line: {
+          color: 'rgb(8,48,107)',
+          width: 1.5
+        }
+      }
+      };
+      data1 = [trace1];
+      layout = {
+        title: 'Home Runs by Year',
+        orientation : 'h'
+      };
+      Plotly.newPlot('bgraph2', data1, layout);
+
+    // SO
+    yValue = []
+    for (let i=0; i < data['Batting'].length; i++) {
+      yValue.push(data['Batting'][i][4])
+    }
+    trace1 = {
+      x: xValue,
+      y: yValue,
+      type: 'bar',
+      textposition: 'auto',
+      hoverinfo: 'none',
+      marker: {
+        color: 'rgb(158,202,225)',
+        opacity: 0.6,
+        line: {
+          color: 'rgb(8,48,107)',
+          width: 1.5
+        }
+      }
+      };
+      data1 = [trace1];
+      layout = {
+        title: 'Strike Outs by Year',
+        orientation : 'h'
+      };
+      Plotly.newPlot('bgraph3', data1, layout);
+    
+    // Pie Chart
+    labels = [
+      'Singles',
+      'Doubles',
+      'Triples',
+      'Home Runs'
+    ]
+    trace1 = {
+
+      values: data['Year'],
+      labels: labels,
+      type: 'pie'
+    }
+      bat_data = [trace1]
+      layout = {
+        title: 'Base Hit Breakdown' 
+      }
+      Plotly.newPlot('bgraph4', bat_data, layout);
+  })
+}
 //-----------------------------------------------------------------------------------
 // bar chart
 //Plot 1 - AVG
