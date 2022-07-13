@@ -86,13 +86,13 @@ def form_pitching():
 
 #--------------------------------------------------------------------------------------------------------
 
-@app.route("/pitching/<yearID>/<playerID>", methods=["GET", "POST"])
-def pitching_api_year_player(yearID, playerID):
+@app.route("/pitching/<playerID>", methods=["GET", "POST"])
+def pitching_api_year_player(playerID):
 
     session = Session(engine)
     
-    print(yearID, playerID)    
-    pitching_result = session.query(Pitching.playerID, Pitching.yearID, Pitching.HR, Pitching.SO, Pitching.BB, Pitching.ERA, Pitching.first, Pitching.last).filter(Pitching.playerID == playerID).filter(Pitching.yearID == yearID).all()
+    print(playerID)    
+    pitching_result = session.query(Pitching.playerID, Pitching.yearID, Pitching.HR, Pitching.SO, Pitching.BB, Pitching.ERA, Pitching.first, Pitching.last).filter(Pitching.playerID == playerID).all()
     print(pitching_result)
     pitching_result = [list(p) for p in pitching_result]
     session.close()
