@@ -85,39 +85,6 @@ def form_pitching():
     return render_template("pitching_data.html")
 
 #--------------------------------------------------------------------------------------------------------
-# # This was the route that Bill helped us out with to get the batting form to work.
-# @app.route("/send_batting/<yearID>/<playerID>", methods=["GET", "POST"])
-# def send_batting(yearID, playerID):
-
-#     session = Session(engine)
-
-#     print(yearID, playerID)
-#     batting_result = session.query(Batting.playerID, Batting.yearID, Batting.AVG, Batting.HR, Batting.single_per, Batting.double_per, Batting.triple_per, Batting.HRper, Batting.SO).filter(Batting.playerID == playerID).filter(Batting.yearID == yearID).all()    
-#     print(batting_result)
-#     batting_result = [list(b) for b in batting_result]
-#     session.close()
-
-#     session.close()
-
-#     return jsonify(batting_result)
-
-# #--------------------------------------------------------------------------------------------------------
-# # This was the route that Bill helped us out with to get the pitching form to work.
-
-# @app.route("/send_pitching/<yearID>/<playerID>", methods=["GET", "POST"])
-# def send_pitching(yearID, playerID):
-
-#     session = Session(engine)
-    
-#     print(yearID, playerID)    
-#     pitching_result = session.query(Pitching.playerID, Pitching.yearID, Pitching.HR, Pitching.SO, Pitching.BB, Pitching.ERA, Pitching.first, Pitching.last).filter(Pitching.playerID == playerID).filter(Pitching.yearID == yearID).all()
-#     print(pitching_result)
-#     pitching_result = [list(p) for p in pitching_result]
-#     session.close()
-
-#     return jsonify(pitching_result)
-#--------------------------------------------------------------------------------------------------------
-# Matt trying to put them on the same page
 
 @app.route("/pitching/<yearID>/<playerID>", methods=["GET", "POST"])
 def pitching_api_year_player(yearID, playerID):
