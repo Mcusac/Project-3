@@ -12,15 +12,17 @@
     <link href ='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css'  rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <script src="https://d3js.org/d3.v5.min.js"></script>
-    <script src="{{ url_for('static', filename='js/app.js') }}"></script>      
-
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+    crossorigin="anonymous">
+    
   </head>
 
 
   <body>
     <nav class="navbar navbar-expand-lg bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand navsmall" aria-current="page" href="index"><i class="fa-solid fa-house"></i> Baseball</a>
+        <a class="navbar-brand navsmall" href="index"><i class="fa-solid fa-house"></i> Baseball</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -37,36 +39,11 @@
               <a class="nav-link" href="batting"></i><i class="fa-solid fa-baseball-bat-ball"></i> Batting</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="batting_data"></i><i class="fa-solid fa-baseball-bat-ball"></i> Batting Data</a>
+              <a class="nav-link" aria-current="page" href="batting_data"></i><i class="fa-solid fa-baseball-bat-ball"></i> Batting Data</a>
             </li>
           </ul>
         </div>
       </div>
     </nav>
-
-    <h1>
-    
-    </h1>
-
-    <div>
-      <div class = "row">
-        <div class="col-md-1"></div>
-        <div class= "col-md-4">
-          <p>
-            This project is meant to display statistics for both pitching and batting of 
-            the given player based on their player ID and the year in which they played. 
-            From these inputs, the user will be able to both see their statistics and as well as 
-            visualizations of these statistics. 
-          </p>
-        </div>
-
-        <div class="col-md-1"></div>
-        <div class="col-md-4">
-          <p>
-            words about what we are doing
-          </p>
-        </div> 
-      </div>
-    </div>
   </body>
 </html>

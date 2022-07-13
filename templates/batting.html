@@ -30,16 +30,16 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="pitching"><i class="fa-solid fa-baseball"></i> Pitching</a>
+              <a class="nav-link" href="pitching"><i class="fa-solid fa-baseball"></i> Pitching</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="batting"></i><i class="fa-solid fa-baseball-bat-ball"></i> Batting</a>
+              <a class="nav-link" href="pitching_data"><i class="fa-solid fa-baseball"></i> Pitching Data</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="form_pitching"><i class="fa-solid fa-baseball"></i> Pitching Form</a>
+              <a class="nav-link" aria-current="page" href="batting"></i><i class="fa-solid fa-baseball-bat-ball"></i> Batting</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="form_batting"></i><i class="fa-solid fa-baseball-bat-ball"></i> Batting Form</a>
+              <a class="nav-link" href="batting_data"></i><i class="fa-solid fa-baseball-bat-ball"></i> Batting Data</a>
             </li>
           </ul>
         </div>
@@ -55,7 +55,7 @@
       <div class="row">
         <div class="col-md-2">
           <!-- Per Bill: we changed the action= below to call the function "batting" in the app.js -->
-          <form method="POST" action="javascript:batting(inputYearID.value,inputPlayerID.value)" role="form", name="batting-form">
+          <form method="POST" action="javascript:batting_api_year_player(inputYearID.value,inputPlayerID.value)" role="form", name="batting-form">
             <div class="form-group">
               <label for="inputYearID">Year</label>
               <input type="text" class="form-control" id="inputYearID" name="yearID" placeholder="yearID">
