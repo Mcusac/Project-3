@@ -54,14 +54,14 @@
       </div>
       <div class="row">
         <div class="col-md-2">
-          <!-- Per Bill: we changed the action= below to call the function "pitching" in the app.js -->
-          <form method="POST" action="javascript:pitching_api_year_player(inputPlayerID.value)" role="form", name="pitching-form">
+          <!-- Add autcomplete -->
+          <form method="POST" action="javascript:pitching_api_year_player(inputPlayerID.value)" role="form", name="pitching-form", autocomplete="on">
 
             <div class="form-group">
                 <label for="inputPlayerID">Player ID</label>
                 <input type="text" class="form-control" id="inputPlayerID" name="playerID" placeholder="playerID">
             </div>
-
+            <br>
             <input type="submit" value="submit" class="btn btn-default">
           </form>   
         </div>

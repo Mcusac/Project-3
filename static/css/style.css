@@ -1,0 +1,15 @@
+/* Autofill text box
+ input {
+    border: 3px solid grey;
+    border-radius: 3px;
+  }
+  
+  input:-webkit-autofill {
+    border: 3px solid blue;
+  }
+  input:autofill {
+    border: 3px solid blue;
+  } */
+
+
+/* Center the heading */
