@@ -8,7 +8,7 @@ function pitching_api_year_player(playerID) {
       let LYear = data[0][7]
       let xValue = new Array(data.length)
       for (i = 0; i < data.length; i++) {
-          xValue[i] = i + FYear;
+          xValue[i] = data[i][1];
       }
       let yValue = []
       for (let i=0; i < data.length; i++) {
@@ -133,7 +133,7 @@ function batting_api_year_player(yearID, playerID){
     let LYear = data['Batting'][0][7]
     let xValue = new Array(data['Batting'].length)
     for (i = 0; i < data['Batting'].length; i++) {
-        xValue[i] = i + FYear;
+      xValue[i] = data['Batting'][i][1];
     }
     let yValue = []
     for (let i=0; i < data['Batting'].length; i++) {
