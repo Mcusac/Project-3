@@ -191,7 +191,7 @@ function batting_api_year_player(yearID, playerID){
     // SO
     yValue = []
     for (let i=0; i < data['Batting'].length; i++) {
-      yValue.push(data['Batting'][i][5])
+      yValue.push(data['Batting'][i][5]);
     }
     trace1 = {
       x: xValue,
@@ -216,23 +216,23 @@ function batting_api_year_player(yearID, playerID){
       Plotly.newPlot('bgraph3', data1, layout);
     
     // Pie Chart
-    labels = [
-      'Singles',
-      'Doubles',
-      'Triples',
-      'Home Runs'
-    ]
-    trace1 = {
+    // labels = [
+    //   'Singles',
+    //   'Doubles',
+    //   'Triples',
+    //   'Home Runs'
+    // ]
+    // trace1 = {
 
-      values: data['Year'],
-      labels: labels,
-      type: 'pie'
-    }
-      bat_data = [trace1]
-      layout = {
-        title: 'Base Hit Breakdown' 
-      }
-      Plotly.newPlot('bgraph4', bat_data, layout);
+    //   values: data['Year'],
+    //   labels: labels,
+    //   type: 'pie'
+    // }
+    //   bat_data = [trace1]
+    //   layout = {
+    //     title: 'Base Hit Breakdown' 
+    //   }
+    //   Plotly.newPlot('bgraph4', bat_data, layout);
   })
 }
 //-----------------------------------------------------------------------------------
