@@ -191,7 +191,7 @@ function batting_api_year_player(yearID, playerID){
     // SO
     yValue = []
     for (let i=0; i < data['Batting'].length; i++) {
-      yValue.push(data['Batting'][i][4])
+      yValue.push(data['Batting'][i][5])
     }
     trace1 = {
       x: xValue,

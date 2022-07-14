@@ -107,7 +107,7 @@ def batting_api_year_player(yearID, playerID):
     session = Session(engine)
 
     print(yearID, playerID)
-    batting_result = session.query(Batting.playerID, Batting.yearID, Batting.AVG, Batting.HR, Batting.HRper, Batting.SO, Batting.first, Batting.last).filter(Batting.playerID == playerID).filter(Batting.yearID == yearID).all()    
+    batting_result = session.query(Batting.playerID, Batting.yearID, Batting.AVG, Batting.HR, Batting.HRper, Batting.SO, Batting.first, Batting.last).filter(Batting.playerID == playerID).all()    
     year_bat = session.query(Batting.single_per, Batting.double_per, Batting.triple_per, Batting.HRper).filter(Batting.playerID == playerID).filter(Batting.yearID == yearID).all()
     print(batting_result)
     batting_result = [list(b) for b in batting_result]
