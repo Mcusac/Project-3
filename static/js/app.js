@@ -1,8 +1,8 @@
 //-----------------------------------------------------------------------------------
 function pitching_api_year_player(playerID) {
-    console.log(playerID)
+    // console.log(playerID)
     d3.json("/pitching/"+playerID).then(function(data){
-      console.log(data)
+      // console.log(data)
       // HR
       let FYear = data[0][6]
       let LYear = data[0][7]
@@ -119,15 +119,9 @@ function pitching_api_year_player(playerID) {
     })
 };
 
-// function batting_api_player(playerID) {
-
-// };
-
 function batting_api_year_player(yearID, playerID){
-  console.log(yearID,playerID)
   d3.json("/batting/"+yearID+"/"+playerID).then(function(data){
     console.log(data['Batting'], data['Year'])
-    //This is where the plotly charts will go for the Pitchers
     // AVG
     let FYear = data['Batting'][0][6]
     let LYear = data['Batting'][0][7]
@@ -216,18 +210,22 @@ function batting_api_year_player(yearID, playerID){
       Plotly.newPlot('bgraph3', data1, layout);
     
     // Pie Chart
-    console.log(data)
     labels = [
       'Singles',
       'Doubles',
       'Triples',
       'Home Runs'
-    ]
+    ]      
+    values = []
+      for (let i=0; i < data['Year'].length; i++) {
+        values.push(data['Year'][i]);
+      }
+    console.log(values)
     trace1 = {
-      // I think error is here
-      values: data['Batting'],
+      type: 'pie',
+      values: values[0],
       labels: labels,
-      type: 'pie'
+      
     }
       bat_data = [trace1]
       layout = {
@@ -239,4 +237,29 @@ function batting_api_year_player(yearID, playerID){
       Plotly.newPlot('bgraph4', bat_data, layout);
   })
 }
+
+function bat_data(){
+  d3.json("/batting_data/").then(function(data){
+
+  })
+}
+
+// work for future
+// function pitch_data(){
+//   d3.json("/pitching_data/").then(function(data){
+// $(document).ready(function () {
+//     $('#example').DataTable({
+//         data: data,
+//         columns: [
+//             { title: 'Name' },
+//             { title: 'Position' },
+//             { title: 'Office' },
+//             { title: 'Extn.' },
+//             { title: 'Start date' },
+//             { title: 'Salary' },
+//         ],
+//     });
+//   });
+//   })
+// }
 //-----------------------------------------------------------------------------------

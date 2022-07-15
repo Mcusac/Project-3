@@ -1,5 +1,5 @@
-/* Autofill text box
- input {
+/* Autofill text box */
+ /* input {
     border: 3px solid grey;
     border-radius: 3px;
   }
@@ -9,7 +9,10 @@
   }
   input:autofill {
     border: 3px solid blue;
-  } */
+  } */ 
 
 
 /* Center the heading */
+h1 {
+  text-align: center;
+}
